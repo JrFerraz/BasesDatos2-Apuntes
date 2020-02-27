@@ -15,3 +15,7 @@ UNIQUE (<atrib>)
   ALTER TABLE
     COLUMNA | RESTRICCION
   ADD|DROP       ADD|DROP
+INSERT INTO <nombre de la tabla>
+ tipos de datos :
+    datetime, nchar, integer
+  va a caer ddl y dml
