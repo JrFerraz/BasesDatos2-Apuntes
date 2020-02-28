@@ -19,3 +19,12 @@ INSERT INTO <nombre de la tabla>
  tipos de datos :
     datetime, nchar, integer
   va a caer ddl y dml
+ISOMORFISMO CURRY HOWARD LAMBEK
+  NUMEROS PG 
+ -  INTEGER - DECIMAL -TEFALTAUNA
+  
+  nO PONER TEXT A TODO PRQ ESTA MAL
+  
+  CHAR---> LONGITUD FIJA
+  VARCHAR ---> LONGITUD VARIABLE (LIMITADA)
+  TEXT ---> VARIABLE (ILIMITADA)
