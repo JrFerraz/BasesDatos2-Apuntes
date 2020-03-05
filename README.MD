@@ -28,3 +28,12 @@ ISOMORFISMO CURRY HOWARD LAMBEK
   CHAR---> LONGITUD FIJA
   VARCHAR ---> LONGITUD VARIABLE (LIMITADA)
   TEXT ---> VARIABLE (ILIMITADA)
+  
+  CASCADE 90% Y CON EL PERDEMOS DATOS
+  EL WHERE ES OPTATIVOXd
+  
+  no hay porque hacer el seeect en el examen
+  
+  
+  A buscar en el txt del examen
+  -Datas -Cosas que implican varias tablas (explicando con que se deberia hacer)
