@@ -36,4 +36,69 @@ ISOMORFISMO CURRY HOWARD LAMBEK
   
   
   A buscar en el txt del examen
-  -Datas -Cosas que implican varias tablas (explicando con que se deberia hacer)
+  -Datas -Cosas que implican varias tablas (explicando con que se deberia hacer)ç
+  
+  
+  
+  
+  
+  
+  
+  
+  Ejercicio:
+  -- CREATE TABLE Investigacion.Sede (
+  
+  CREATE TABLE Sede (
+    Nome_Sede Nome_válido,
+    Campus    Nome_Válido NOT NULL,
+    CONSTRAINT PK_Sede
+      PRIMARY KEY (Nome_Sede)
+  );
+  CREATE TABLE Departamento (
+    Nome_Departamento Nome_Válido PRIMARY KEY,
+    Telefono          CHAR(9)     NOT NULL,
+    Director          Tipo_DNI
+    --FK(Director)
+  );
+  CREATE TABLE Ubicación (
+    Nome_Sede          Nome_Válido,
+    Nome_Departamento  Nome_Válido,
+    PRIMARY KEY (Nome_Sede, Nome_Departamento),
+    CONTRAINT FK_Sede_Ubicación
+      FOREIGN KEY (Nome_Sede)
+      REFERENCES Sede (Nome_Sede),
+    CONTRAINT FK_Departamento_Ubicacion
+      FOREIGN KEY (Nome_Departamento)
+      REFERENCES Departamento (Nome_Departamento),
+      ON DELETE CASCADE
+      ON UPDATE CASCADE
+      --FK (Lider)
+  );
+  
+  CREATE TABLE Profesor (
+  DNI Tipo_DNI PRIMARY KEY,
+  Nome_Profesor Nome_Válido NOT NULL,
+  Titulación VARCHAR(20) NOT NULL,
+  Experiencia Integer,
+  N_Grupo     Nome_Válido
+  N_Departamento Nome_Válido,
+  FOREIGN KEY    (N_Grupo, N_Departamento)
+    REFERENCES Grupo (Nome_Grupo, Nome_Departamento)
+    ON DELETE SET NULL
+    ON UPDATE CASCADE
+  );
+  
+  ALTER TABLE Departamento
+    ADD CONSTRAIT FK_Profesor_Departamento
+      FOREIGN KEY (N_Grupo, N_Departamento)
+      REFERENCES Grupo (Nome_Grupo, Nome_Departamento)
+      ON DELETE SET NULL
+      ON UPDATE SET NULL;
+-- A FOREIGN KEY de Profesor está mal. Hacer una nueva
+-- FOREIGN KEY con B:N M:N.
+  ALTER TABLE Profesor
+    DROP CONSTRAIT FK_Grupo_Profesor;
+  ALTER TABLE Profesor
+    ADD  CONSTRAIT FK_Grupo_Profesor
+      FOREIGN KEY   (N_Grupo,   N_Departamento)
+      REFERENCES Grupo (Nome)
