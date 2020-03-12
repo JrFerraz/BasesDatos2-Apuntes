@@ -102,3 +102,28 @@ ISOMORFISMO CURRY HOWARD LAMBEK
     ADD  CONSTRAIT FK_Grupo_Profesor
       FOREIGN KEY   (N_Grupo,   N_Departamento)
       REFERENCES Grupo (Nome)
+
+
+---- El otro ejercicio
+
+  CREATE TABLE Proxecto (
+    Código_Proxecto Tipo_Código PRIMARY KEY,
+    Nome_Proxecto    Nome_Válido NOT NULL,
+    Orzamento        MONEY       NOT NULL,
+    Data_Inicio      DATE        NOT NULL,
+    Data_Fin         DATE,
+    N_Gr             Nome_Válido,
+    N_Dep            Nome_Válido,
+    UNIQUE (Nome_Proxecto),
+    CHECK (Data_Inicio < Data_Fin)
+  }
+  ALTER TABLE Proxecto
+    ADD CONSTRAIT FK_Grupo_Proxecto
+    FOREIGN KEY      (N_Gr,     N_Dep)
+    REFERENCES Grupo (Nome_Grupo, Nome_Departamento)
+    ON DELETE SET NULL
+    ON UPDATE CASCADE;
+  
+  ALTER TABLE Proxecto
+    ADD CONSTRAIT UNIQUE Data_Inicio_Única
+      UNIQUE  (Data_Inicio);
