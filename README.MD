@@ -30,7 +30,7 @@ ISOMORFISMO CURRY HOWARD LAMBEK
   TEXT ---> VARIABLE (ILIMITADA)
   
   CASCADE 90% Y CON EL PERDEMOS DATOS
-  EL WHERE ES OPTATIVOXd
+  
   
   no hay porque hacer el seeect en el examen
   
@@ -128,6 +128,4 @@ ISOMORFISMO CURRY HOWARD LAMBEK
     ADD CONSTRAIT UNIQUE Data_Inicio_Única
       UNIQUE  (Data_Inicio);
       
-      HAY QUE PEDIR EL OTRO EJEMPLO XD
-      IAGO NO ME COPIES
-ASDFGH
+ 
