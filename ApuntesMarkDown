@@ -1,0 +1,124 @@
+# DML
+
+(Data Manipulation Lenguaje). Lenguaje proporcionado por el gestor de bases de datos.
+Permite al usuario realizar tareas de consulta y manipulación de datos.
+
+Se basa en 4 comandos base sobre los que se pueden realizar ciertas acciones:
+
+- **SELECT** : Con dicho comando podemos elegir (seleccionar) columnas de una tabla (FROM) para
+mostrar un contenido que ya estaba metido en una base de datos. Con SELECT hacemos
+consultas, y hoy en día se considera mas propio considerarle parte del lenguaje DQL. No
+entraré en detalles sobre este comando pues lo tengo explicado en los primeros apuntes.
+- **INSERT** : Con INSERT podemos añadir filas a una tabla, luego en un ejemplo veremos varios
+ejemplos de estructura. Las declaraciones con INSERT no pueden tener nombres duplicados en
+la lista de columnas de destino. Sus valores deben agregarse en el mismo orden que las
+columnas especificadas. La cantidad de valores debe de coincidir con el numero de columnas
+especificadas. Y los valores deben ser de un tipo torelable por la columna a la que se insertan.
+Si omites los nombres de columna, se agregarán de forma ascendente.
+- **UPDATE** : Con dicho comando puedes cambiar el valor de los datos en una o más columnas.
+Con un ejemplo veremos mejor su estructura, pero esta debe contener dicho comando, la
+cláusula SET y la palabra clave WHERE seguida de una condición. Para actualizar todas las filas
+de la tabla usa “WHERE true”.
+- **DELETE** : Usado para quitar filas de una tabla. Se basa en especificar a que tabla te refieres y a
+establecer una condición con WHERE que determina que columna quieres borrar.
+Posteriormente, ejemplos.
+
+## INSERT EJEMPLOS:
+
+1. Con valores explícitos: Se especifica a la tabla que va dirigida y a las columnas, de tal
+    manera que los datos introducidos primero en cada sentencia se dirigen a “product” y
+    los otros a “quantity”. De tener más columnas estas quedarían NULL al no
+    especificarse nada.
+```
+INSERT dataset.Inventory (product, quantity)
+VALUES('top load washer', 10),
+      ('front load washer', 20),
+      ('dryer', 30),
+      ('refrigerator', 10),
+      ('microwave', 20),
+      ('dishwasher', 30),
+      ('oven', 5)
+```
+2. Con values + subconsulta: El concepto básicamente es insertar una fila de una tabla en
+    otra gracias al uso de subconsultas.
+```
+INSERT dataset.DetailedInventory (product, quantity)
+VALUES('countertop microwave',
+  (SELECT quantity FROM dataset.DetailedInventory
+   WHERE product = 'microwave'))
+```
+3. Sin nombres de columna: Añadirá dichos valores debajo de lo que ya estaban
+    establecidos en la tabla
+```
+INSERT dataset.Warehouse VALUES('warehouse #4', 'WA'), ('warehouse #5', 'NY')
+```
+
+## DELETE EJEMPLOS:
+
+1. Con clausula WHERE: Borras de la tabla especificada los valores que cumplan la
+    condición del WHERE.
+```
+DELETE dataset.Inventory
+WHERE quantity = 0
+```
+2. Con subconsulta: Borras de la tabla especificada aquellos valores que no están
+    presentes en la tabla especificada en la subconsulta
+```
+DELETE dataset.Inventory i
+WHERE i.product NOT IN (SELECT product from dataset.NewArrivals)
+```
+## UPDATE EJEMPLOS:
+
+1. Con clausula WHERE: Se actualiza Inventory reduciendo quantity en 10 para todos los
+    valores que contienen “washer”
+```
+UPDATE dataset.Inventory
+SET quantity = quantity - 10
+WHERE product like '%washer%'
+```
+2. Campos anidados: El concepto es el mismo, pero con más de una modificación
+```
+UPDATE dataset.DetailedInventory
+SET specifications.color = 'white',
+    specifications.warranty = '1 year'
+WHERE product like '%washer%'
+```
+3. Registros repetidos: Se agrega una entrada a un registro repetido en la columna
+    comments para productos que contienen “washer”
+```
+UPDATE dataset.DetailedInventory
+SET comments = ARRAY(
+  SELECT comment FROM UNNEST(comments) AS comment
+  UNION ALL
+  SELECT (CAST('2016-01-01' AS DATE), 'comment1')
+)
+WHERE product like '%washer%'
+```
+4. Uniendo tres tablas: Se establece “supply_constrained” en true para los productos de
+    NewArrivals en los que la ubicación del depósito esta en “WA”
+```
+UPDATE dataset.DetailedInventory
+SET supply_constrained = true
+FROM dataset.NewArrivals, dataset.Warehouse
+WHERE DetailedInventory.product = NewArrivals.product AND
+      NewArrivals.warehouse = Warehouse.warehouse AND
+      Warehouse.state = 'WA'
+```
+
+
+# Restricciones de integridad referencial:
+
+Integridad referencial significa que cuando un registro en una tabla haga referencia a un
+registro en otra tabla, el registro correspondiente debe existir. Es decir, al establecer una
+relación entre tablas, esta queda determinada por el paso de la clave primaria de una como
+clave foránea a la otra.
+
+La expresión completa de una restricción de clave foránea es la siguiente:
+```
+[CONSTRAINT símbolo] FOREIGN KEY (nombre_columna, ...)
+                  REFERENCES nombre_tabla (nombre_columna, ...)
+                  [ON DELETE {CASCADE | SET NULL | NO ACTION
+                              | RESTRICT}]
+                  [ON UPDATE {CASCADE | SET NULL | NO ACTION
+                              | RESTRICT}]
+```
