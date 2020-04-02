@@ -27,4 +27,4 @@ MYSQL solo que este es totalmente gratuito.
     abrir una vez configurado.
 
 Aquí una foto del programa instalado y con la ventana de comandos abierta:
-![Click aquí](https://github.com/JrFerraz/BasesDatos2-Apuntes/commit/01c970c59e65e7a468c72e1281ec48c01c257686#diff-784649ac7596dcafa1a63b34d623f41f) 
+![Click aquí](https://github.com/JrFerraz/BasesDatos2-Apuntes/commit/5a75a60fc6b261d5f32399b65f3ee92402b24b8b) 
