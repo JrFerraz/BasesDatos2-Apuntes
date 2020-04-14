@@ -49,5 +49,3 @@ Seguimos con las tablas que faltan
 ![Click aquí](https://github.com/JrFerraz/BasesDatos2-Apuntes/blob/master/B8.PNG)
 
 ![Click aquí](https://github.com/JrFerraz/BasesDatos2-Apuntes/blob/master/B9.PNG)
-
-![Click aquí]()
